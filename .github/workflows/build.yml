@@ -37,12 +37,12 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: ${{ steps.repo.outputs._1 }} 
-            path: ./*.ovl
+            path: fastCFWSwitch.zip
         - name: Upload binaries to release
           uses: svenstaro/upload-release-action@v2
           with:
             repo_token: ${{ secrets.release_token }}
-            file: ./*.ovl
+            file: fastCFWSwitch.zip
             tag: ${{ github.ref }}
             overwrite: true
             file_glob: true
