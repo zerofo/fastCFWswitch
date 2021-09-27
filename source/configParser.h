@@ -3,7 +3,7 @@
 #include "element.h"
 #include <list>
 
-#define CONFIG_FILE_PATH "/config/fastCFWSwitch/config.ini"
+#define CONFIG_FILE_PATH "/switch/config/fastCFWSwitch/config.ini"
 
 namespace fastCFWSwitcher{
     class ConfigParser{

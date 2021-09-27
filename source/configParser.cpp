@@ -121,9 +121,13 @@ std::list<Element*>* ConfigParser::getElements(){
     /* Open config file. */
     FsFile fileConfig;
     if (R_FAILED(fsFsOpenFile(&fsSdmc, this->filePath, FsOpenMode_Read, &fileConfig))){
-        setError("open config file failed ");
+        //setError("open config file failed ");
         fsFsClose(&fsSdmc);
-        return nullptr;
+        if (R_FAILED(fsFsOpenFile(&fsSdmc, "config/fastCFWSwitch/config.ini", FsOpenMode_Read, &fileConfig))){
+            fsFsClose(&fsSdmc);
+            return nullptr;
+        }
+     
     }
 
 
