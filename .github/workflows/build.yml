@@ -20,7 +20,7 @@ jobs:
       id: repo
       with:
         msg: ${{ github.repository }}
-        seperator: '/'
+        separator: '/'
     - name: Checkout
       uses: actions/checkout@master
       with:
