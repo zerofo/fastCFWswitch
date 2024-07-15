@@ -16,14 +16,16 @@ jobs:
 
     steps:
     - name: Extract owner and repo
-      uses: jungwinter/split@v2
+      uses: winterjung/split@v2
       id: repo
       with:
         msg: ${{ github.repository }}
         seperator: /
     - name: Checkout
       uses: actions/checkout@master
-
+      with:
+            ref: master
+            submodules: recursive
     - name: Build
       run: ls &&  make -j2 
 # jobs:
