@@ -16,7 +16,7 @@ jobs:
 
     steps:
     - name: Extract owner and repo
-      uses: xom9ikk/split@master
+      uses: winterjung/split@v2.1.0
       id: repo
       with:
         msg: ${{ github.repository }}
