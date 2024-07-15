@@ -25,7 +25,7 @@ jobs:
       uses: actions/checkout@master
 
     - name: Build
-      run: cd example && make -j2
+      run: cd fastCFWswitch && make -j2 
 # jobs:
   # build_NX:
   #     runs-on: ubuntu-latest
@@ -55,12 +55,12 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: ${{ steps.repo.outputs._1 }} 
-        path: fastCFWSwitch.zip
+        path: fastCFWswitch/*.ovl
     - name: Upload binaries to release
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.release_token }}
-        file: fastCFWSwitch.zip
+        file: fastCFWswitch/*.ovl
         tag: ${{ github.ref }}
         overwrite: true
         file_glob: true
