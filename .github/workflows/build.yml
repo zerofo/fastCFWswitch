@@ -54,7 +54,7 @@ jobs:
   #              cp *.ovl switch/.overlays/
   #              zip -r fastCFWSwitch.zip switch
     - name: Upload file
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ steps.repo.outputs._1 }} 
         path: ./*.ovl
