@@ -27,7 +27,10 @@ jobs:
             ref: master
             submodules: recursive
     - name: Build
-      run: ls &&  make -j2 
+      run: |
+        git config --global --add safe.directory `pwd` 
+        git submodule update --remote 
+        make -j2 
 # jobs:
   # build_NX:
   #     runs-on: ubuntu-latest
