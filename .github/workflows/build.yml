@@ -25,6 +25,9 @@ jobs:
           git config --global --add safe.directory '*' 
           git submodule update --init --remote 
           make -C libs/libnx install -j2
+          # devkitA64 GCC15/binutils2.45 下 libnx specs 的 -z text 会误报
+          # "read-only segment has dynamic relocations",去掉该选项生成本地 specs
+          sed 's/ -z text//' $DEVKITPRO/libnx/switch.specs > switch_local.specs
           make 
           mkdir -p switch/.overlays/
           cp *.ovl switch/.overlays/

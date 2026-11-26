@@ -170,10 +170,6 @@ $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
-# devkitA64 GCC15/binutils2.45 下 libnx specs 的 -z text 会误报
-# "read-only segment has dynamic relocations",构建时生成去掉该选项的本地 specs 副本。
-$(abspath $(CURDIR)/../switch_local.specs): $(DEVKITPRO)/libnx/switch.specs
-	@sed 's/ -z text//' $(<) > $(@)
 
 #---------------------------------------------------------------------------------
 clean:
@@ -195,7 +191,7 @@ $(OUTPUT).ovl		:	$(OUTPUT).elf $(OUTPUT).nacp
 	@elf2nro $< $@ $(NROFLAGS)
 	@echo "built ... $(notdir $(OUTPUT).ovl)"
 
-$(OUTPUT).elf	:	$(OFILES) $(abspath $(CURDIR)/../switch_local.specs)
+$(OUTPUT).elf	:	$(OFILES)
 
 $(OFILES_SRC)	: $(HFILES_BIN)
 
