@@ -61,7 +61,8 @@ CFLAGS	+=	$(INCLUDE) -I -D__SWITCH__
 CXXFLAGS	:= $(CFLAGS) -fno-exceptions -std=c++20 -DAPP_TITLE="\"$(APP_TITLE)\"" -DAPP_VERSION="\"v$(APP_VERSION)\""
 
 ASFLAGS	:=	-g $(ARCH)
-LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
+LDFLAGS	=	-specs=$(abspath $(CURDIR)/../switch_local.specs) -g $(ARCH) -Wl,-Map,$(notdir $*.map)
+
 
 LIBS	:= -lnx
 
@@ -169,6 +170,11 @@ $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
+# devkitA64 GCC15/binutils2.45 下 libnx specs 的 -z text 会误报
+# "read-only segment has dynamic relocations",构建时生成去掉该选项的本地 specs 副本。
+$(abspath $(CURDIR)/../switch_local.specs): $(DEVKITPRO)/libnx/switch.specs
+	@sed 's/ -z text//' $(<) > $(@)
+
 #---------------------------------------------------------------------------------
 clean:
 	@rm -fr $(BUILD) $(TARGET).ovl $(TARGET).nro $(TARGET).nacp $(TARGET).elf
@@ -189,7 +195,7 @@ $(OUTPUT).ovl		:	$(OUTPUT).elf $(OUTPUT).nacp
 	@elf2nro $< $@ $(NROFLAGS)
 	@echo "built ... $(notdir $(OUTPUT).ovl)"
 
-$(OUTPUT).elf	:	$(OFILES)
+$(OUTPUT).elf	:	$(OFILES) $(abspath $(CURDIR)/../switch_local.specs)
 
 $(OFILES_SRC)	: $(HFILES_BIN)
 
