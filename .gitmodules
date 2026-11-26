@@ -1,6 +1,9 @@
 [submodule "libs/libtesla"]
 	path = libs/libtesla
 	url = https://github.com/zerofo/libtesla
+[submodule "libs/libnx"]
+	path = libs/libnx
+	url = https://github.com/switchbrew/libnx
 [submodule "libs/inih"]
 	path = libs/inih
 	url = https://github.com/benhoyt/inih.git
