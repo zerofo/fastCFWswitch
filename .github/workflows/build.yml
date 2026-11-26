@@ -34,7 +34,7 @@ jobs:
                zip -r fastCFWSwitch.zip switch
                 
         - name: Upload file
-          uses: actions/upload-artifact@v2
+          uses: actions/upload-artifact@master‎
           with:
             name: ${{ steps.repo.outputs._1 }} 
             path: fastCFWSwitch.zip
